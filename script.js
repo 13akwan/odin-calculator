@@ -62,12 +62,43 @@ function handleEquals(){
 }
 
 
-handleNumberInput("1")
-handleNumberInput("2")
-handleOperator("+")
-handleNumberInput("7")
-handleOperator("-")
-handleNumberInput("1")
-handleEquals()
-console.log(currentInput)
+const display = document.getElementById("display");
+const numberBtns = document.querySelectorAll(".number")
+
+numberBtns.forEach(button => {
+    button.addEventListener("click", () =>{
+        const value = button.textContent
+        handleNumberInput(value);
+        display.value = currentInput;
+    })
+})
+
+const operatorBtns = document.querySelectorAll(".add, .subtract, .multiply, .divide");
+
+operatorBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        const op = button.textContent.trim();
+        handleOperator(op);
+        display.value = currentInput;
+    });
+});
+
+const equalsBtn = document.querySelector(".result");
+
+equalsBtn.addEventListener("click", () => {
+    handleEquals();
+    display.value = currentInput;
+});
+
+const clearBtn = document.querySelector(".clear");
+
+clearBtn.addEventListener("click", () => {
+    currentInput = "";
+    firstNumber = null;
+    operator = null;
+    result = null;
+    shouldResetDisplay = false;
+
+    display.value = "";
+});
 
